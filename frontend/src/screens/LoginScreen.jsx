@@ -1,4 +1,4 @@
-import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui/material"
+import { Box, Button, Container, CssBaseline } from "@mui/material"
 import FormContainer from "../components/FormContainer"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -7,14 +7,22 @@ import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   });
 
+  const [signUpForm, setSignUpForm] = useState(false);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const { loading, user, error } = useSelector((state) => state);
+
+  const toggleForm = () => {
+    setSignUpForm(!signUpForm);
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -25,10 +33,15 @@ const LoginScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = formData;
-    dispatch(loginUser({ email, password }))
-  }
+    if (signUpForm) {
+      //handle signup functionality
+    }
 
+    if (!signUpForm) {
+      const { email, password } = formData;
+      dispatch(loginUser({ email, password }))
+    }
+  }
   useEffect(() => {
     if (user) {
       navigate('/home');
@@ -59,47 +72,8 @@ const LoginScreen = () => {
               textAlign: "center",
             }}
           >
-            <form onSubmit={handleSubmit}>
-              <Typography variant="h5" color="white" mb={2}>
-                Login
-              </Typography>
-              <TextField
-                label="Email"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="email"
-                onChange={handleChange}
-                InputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'white' },
-                    '&:hover fieldset': { borderColor: 'lightgray' },
-                  },
-                }}
-              />
-              <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="password"
-                onChange={handleChange}
-                InputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'white' },
-                    '&:hover fieldset': { borderColor: 'lightgray' },
-                  },
-                }}
-              />
-              <Button variant="contained" type="submit" disabled={loading} color="primary" fullWidth sx={{ mt: 2 }}>
-                {loading ? "loading.." : "login"}
-              </Button>
-            </form>
+            <Button onClick={toggleForm}>{signUpForm ? 'sign up' : 'login'}</Button>
+            <FormContainer handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} signUpForm={signUpForm} />
           </Box>
         </Container>
       </Box>

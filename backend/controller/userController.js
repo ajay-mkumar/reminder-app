@@ -22,7 +22,7 @@ const addUser = asyncHandler(async(req, res) => {
         password: hashedPassword
     })
 
-    res.status(200).json(`user is created: ${user}`);
+    res.status(200).json(user.firstName);
 });
 
 const authUser = asyncHandler(async(req, res) => {

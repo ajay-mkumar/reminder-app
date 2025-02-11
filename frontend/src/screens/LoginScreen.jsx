@@ -2,8 +2,9 @@ import { Box, Button, Container, CssBaseline } from "@mui/material"
 import FormContainer from "../components/FormContainer"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { loginUser } from "../redux/actions/authAction";
+import { loginUser, signupUser } from "../redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
+import SignupScreen from "./SignupScreen";
 
 const LoginScreen = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,8 @@ const LoginScreen = () => {
 
   const dispatch = useDispatch();
   const { loading, user, error } = useSelector((state) => state);
+  
+  // const { loading1, user1, error1 } = useSelector((state) => state.register);
 
   const toggleForm = () => {
     setSignUpForm(!signUpForm);
@@ -34,10 +37,14 @@ const LoginScreen = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (signUpForm) {
-      //handle signup functionality
+      const { firstName, lastName, email, password, confirmPassword } = formData;
+
+      dispatch(signupUser({ firstName, lastName, email, password, confirmPassword }));
     }
 
     if (!signUpForm) {
+      
+      console.log('mee')
       const { email, password } = formData;
       dispatch(loginUser({ email, password }))
     }
@@ -46,7 +53,7 @@ const LoginScreen = () => {
     if (user) {
       navigate('/home');
     }
-  }, [user, navigate]);
+  }, [user,navigate]);
 
   return (
     <>
@@ -66,14 +73,25 @@ const LoginScreen = () => {
             sx={{
               backgroundColor: "#000", // Black background
               padding: 4,
-              borderRadius: 2,
+              borderRadius: 2, 
               boxShadow: 3,
               width: "100%",
               textAlign: "center",
             }}
           >
-            <Button onClick={toggleForm}>{signUpForm ? 'sign up' : 'login'}</Button>
-            <FormContainer handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} signUpForm={signUpForm} />
+            <Button onClick={toggleForm}
+             variant={signUpForm ? "contained" : "outlined"}
+             sx={{
+              display: 'flex',
+              justifyContent: 'flex-end'
+             }
+             }>{!signUpForm ? 'sign up' : 'login'}</Button>
+             {signUpForm ?
+             
+            <SignupScreen handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
+            :
+            <FormContainer handleChange={handleChange} handleSubmit={handleSubmit} loading={loading}  />
+             }
           </Box>
         </Container>
       </Box>

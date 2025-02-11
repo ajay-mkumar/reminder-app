@@ -3,7 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../redux/authAction";
+import { logoutUser } from "../redux/actions/authAction";
 
 
 const menuItems = [{

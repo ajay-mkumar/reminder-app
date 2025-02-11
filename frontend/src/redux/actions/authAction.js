@@ -1,5 +1,7 @@
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../types/authTypes";
+
 export const loginUser = (credentials) => async(dispatch) => {
-    dispatch({ type: "LOGIN_REQUEST" });
+    dispatch({ type: LOGIN_REQUEST });
 
     try{
         const response = await fetch('http://localhost:8000/user/authUser', {
@@ -11,14 +13,14 @@ export const loginUser = (credentials) => async(dispatch) => {
         const data = await response.json();
 
         if(response.ok) {
-            dispatch({ type: "LOGIN_SUCCESS", payload: data });
+            dispatch({ type: LOGIN_SUCCESS, payload: data });
             localStorage.setItem("userinfo", data);
         } else {
-            dispatch({ type: "LOGIN_FAILURE", payload: data});
+            dispatch({ type: LOGIN_FAILURE, payload: data});
         }
     } catch(error) {
         console.log(error);
-        dispatch({ type: "LOGIN_FAILURE", payload: "Network Error"});
+        dispatch({ type: LOGIN_FAILURE, payload: "Network Error"});
     }
 }
 
@@ -30,5 +32,5 @@ export const logoutUser = () => async(dispatch) => {
     });
     localStorage.removeItem("userinfo");
 
-    dispatch({ type: "LOGOUT_SUCCESS"});
+    dispatch({ type: LOGOUT_SUCCESS});
 }

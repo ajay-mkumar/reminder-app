@@ -2,7 +2,7 @@ import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui
 import FormContainer from "../components/FormContainer"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { loginUser } from "../redux/authAction";
+import { loginUser } from "../redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {

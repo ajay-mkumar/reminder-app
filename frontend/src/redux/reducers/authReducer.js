@@ -1,3 +1,5 @@
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../types/authTypes";
+
 const initialState = {
     loading: false,
     user: localStorage.getItem("userinfo") || null,
@@ -6,15 +8,15 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type){
-        case "LOGIN_REQUEST":
+        case LOGIN_REQUEST:
             return { ...state, loading: true};
-        case "LOGIN_SUCCESS":
+        case LOGIN_SUCCESS:
             return { loading: false, user: action.payload, error: null};
-        case "LOGIN_FAILURE":
+        case LOGIN_FAILURE:
             return { loading: false, user: null, error: action.payload};
         case "LOGOUT_USER":
             return {...state, loading: false};
-        case "LOGOUT_SUCCESS":
+        case LOGOUT_SUCCESS:
             return { initialState }
         default:
             return state;

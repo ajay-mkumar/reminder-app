@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import Header from "./Header";
 
 const ProtectedRoute = () => {
-    const { user } = useSelector((state) => state);
+    const { user } = useSelector((state) => state.auth);
 
     if (!user) {
         return <Navigate to={'/'} />

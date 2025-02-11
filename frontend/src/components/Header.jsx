@@ -16,7 +16,7 @@ const menuItems = [{
 }];
 
 const Header = () => {
-    const { user } = useSelector((state) => state);
+    const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [anchorElNav, setAnchorElNav] = useState(null);
 

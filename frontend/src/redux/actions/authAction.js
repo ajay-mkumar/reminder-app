@@ -7,6 +7,7 @@ export const loginUser = (credentials) => async(dispatch) => {
     try{
         const response = await fetch('http://localhost:8000/user/authUser', {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type" : "application/json"},
             body: JSON.stringify(credentials),
         });
@@ -20,7 +21,7 @@ export const loginUser = (credentials) => async(dispatch) => {
             dispatch({ type: LOGIN_FAILURE, payload: data});
         }
     } catch(error) {
-        console.log(error);
+        console.log('er',error);
         dispatch({ type: LOGIN_FAILURE, payload: "Network Error"});
     }
 }

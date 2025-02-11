@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const CardComponent = ({card, index}) => {
   const [selectedCard, setSelectedCard] = useState(0);
+    
     return(
     <Card>
         <CardActionArea
@@ -22,12 +23,12 @@ const CardComponent = ({card, index}) => {
             },
           }}
         >
-          <CardContent sx={{ height: '100%' }}>
+          <CardContent key={index} sx={{ height: '100%' }}>
             <Typography variant="h5" component="div">
-              {card.title}
+              {card.reminder}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {card.description}
+              {card.reminder_time}
             </Typography>
           </CardContent>
         </CardActionArea>

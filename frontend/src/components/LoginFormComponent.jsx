@@ -1,6 +1,6 @@
 import {  Button, TextField, Typography } from "@mui/material";
 
-const FormContainer = ({ handleChange, handleSubmit, loading }) => {
+const LoginFormComponent = ({ handleChange, handleSubmit, loading }) => {
 
   return (
 
@@ -52,4 +52,4 @@ const FormContainer = ({ handleChange, handleSubmit, loading }) => {
   );
 }
 
-export default FormContainer;
+export default LoginFormComponent;

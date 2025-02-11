@@ -3,29 +3,30 @@ const reminderModel = require("../models/reminderModel");
 
 
 const getReminders = asyncHandler(async(req, res) => {
-    const reminders = await reminderModel.findAll({
+    const reminderData = await reminderModel.findAll({
         where: {
             userId: req.user.id
         }
     });
 
-    if (!reminders) {
+    if (!reminderData) {
         res.status(404).json({"error": "No reminders found"});
     }
+    reminders = reminderData.map(reminder => reminder.toJSON())
 
     res.status(200).json(reminders);
 })
 
 const addReminder = asyncHandler(async(req, res) => {
-    const {reminder, reminder_time} = req.body;
+    const {reminder, reminderTime} = req.body;
 
     const reminderObject = await reminderModel.create({
         userId: req.user.id,
         reminder: reminder,
-        reminder_time: reminder_time
+        reminder_time: reminderTime
     })
 
-    res.status(200).json(reminderObject);
+      res.status(200).json([reminderObject]);
 })
 
 const updateReminder = asyncHandler(async(req, res) => {

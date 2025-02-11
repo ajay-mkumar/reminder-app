@@ -1,12 +1,12 @@
 import { Box, Button, Container, CssBaseline } from "@mui/material"
-import FormContainer from "../components/FormContainer"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loginUser, signupUser } from "../redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
-import SignupScreen from "./SignupScreen";
+import SignupFormComponent from "../components/SignupFormComponent";
+import LoginFormComponent from "../components/LoginFormComponent";
 
-const LoginScreen = () => {
+const AuthScreen = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,9 +19,8 @@ const LoginScreen = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { loading, user, error } = useSelector((state) => state);
+  const { loading, user, error } = useSelector((state) => state.auth);
   
-  // const { loading1, user1, error1 } = useSelector((state) => state.register);
 
   const toggleForm = () => {
     setSignUpForm(!signUpForm);
@@ -88,9 +87,9 @@ const LoginScreen = () => {
              }>{!signUpForm ? 'sign up' : 'login'}</Button>
              {signUpForm ?
              
-            <SignupScreen handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
+            <SignupFormComponent handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
             :
-            <FormContainer handleChange={handleChange} handleSubmit={handleSubmit} loading={loading}  />
+            <LoginFormComponent handleChange={handleChange} handleSubmit={handleSubmit} loading={loading}  />
              }
           </Box>
         </Container>
@@ -99,4 +98,4 @@ const LoginScreen = () => {
   );
 }
 
-export default LoginScreen;
+export default AuthScreen;

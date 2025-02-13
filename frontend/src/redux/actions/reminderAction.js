@@ -6,7 +6,7 @@ export const getRemminder = () => async (dispatch) => {
             method: "GET",
             credentials: 'include'
         });
-        
+
         const data = await response.json();
         console.log('is arrya', Array.isArray(data))
 
@@ -33,7 +33,7 @@ export const addReminder = (reminder) => async (dispatch) => {
         })
 
         const data = await response.json();
-console.log(data)
+
         if (response.ok) {
             dispatch({ type: "POST_REMINDER_SUCCESS", payload: data });
         } else {
@@ -42,5 +42,25 @@ console.log(data)
     } catch (error) {
         console.log(error);
         dispatch({ type: "POST_REMINDER_FAILURE", payload: 'Network Error' })
+    }
+}
+
+export const deleteReminder = (reminderId) => async (dispatch) => {
+    dispatch({ type: "POST_DELETE_REQUEST" });
+
+    try {
+        const response = await fetch(`http://localhost:8000/reminder/${reminderId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete");
+        }
+
+        dispatch({ type: "POST_DELETE_SUCCESS", payload: reminderId });
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: "POST_DELETE_FAILURE", payload: "Network Error" });
     }
 }

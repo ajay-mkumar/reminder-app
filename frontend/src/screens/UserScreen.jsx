@@ -1,6 +1,10 @@
 import { Box, Container, Grid, TextField, Typography } from "@mui/material"
+import { useSelector } from "react-redux";
 
 const UserScreen = () => {
+    const { user } = useSelector((state) => state.auth);
+ 
+
     return (
         <Container sx={{ m: 3, p: 3 }}>
             <Box sx={{

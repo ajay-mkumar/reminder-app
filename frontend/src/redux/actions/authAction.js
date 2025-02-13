@@ -50,27 +50,6 @@ export const signupUser = (credentials) => async (dispatch) => {
     }
 }
 
-export const getUserById = (userId) => async (dispatch) => {
-    dispatch({ type: "GET_USER_REQUEST" });
-
-    try {
-        const response = await fetch(`http://localhost:8000/user/${userId}`, {
-            method: "GET",
-            credentials: "include"
-        })
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            dispatch({ type: "GET_USER_FAILURE", payload: data });
-        }
-
-        dispatch({ type: "GET_USER_SUCCESS", payload: data });
-    } catch (error) {
-        console.log(error);
-        dispatch({ type: "GET_USER_FAILURE", payload: 'Network Error' });
-    }
-}
 
 export const logoutUser = () => async (dispatch) => {
     dispatch({ type: "LOGOUT_USER" });

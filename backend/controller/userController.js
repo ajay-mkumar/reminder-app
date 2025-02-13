@@ -50,7 +50,7 @@ const authUser = asyncHandler(async(req, res) => {
         maxAge: 36000000
     }) 
 
-    res.status(200).json(user.firstName);
+    res.status(200).json(user);
 
 })
 const getUserById = asyncHandler(async(req, res) => {

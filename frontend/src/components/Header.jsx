@@ -13,10 +13,16 @@ const menuItems = [{
 {
     menu: 'About US',
     link: '/about'
-}];
+},
+{
+    menu: 'Profile',
+    link: '/profile'
+}
+];
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
+
     const dispatch = useDispatch();
     const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -31,7 +37,7 @@ const Header = () => {
     const handleLogout = () => {
         dispatch(logoutUser());
     }
-    
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -124,19 +130,19 @@ const Header = () => {
                             color: 'white'
                         }}
                         >
-                            Hi {user}
+                            Hi {user.firstName}
                         </Button>
-                        <Button 
-                        onClick={handleLogout}
-                                sx={{
-                                    my: 2,
-                                    display: 'block',
-                                    textDecoration: 'none',
-                                    color: 'white'
-                                }}
-                            >
+                        <Button
+                            onClick={handleLogout}
+                            sx={{
+                                my: 2,
+                                display: 'block',
+                                textDecoration: 'none',
+                                color: 'white'
+                            }}
+                        >
                             Logout
-                            </Button>
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>

@@ -1,56 +1,78 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../types/authTypes";
 import { SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../types/signupTypes";
 
-export const loginUser = (credentials) => async(dispatch) => {
+export const loginUser = (credentials) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
-    try{
+    try {
         const response = await fetch('http://localhost:8000/user/authUser', {
             method: "POST",
             credentials: "include",
-            headers: { "Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(credentials),
         });
 
         const data = await response.json();
 
-        if(response.ok) {
-            dispatch({ type: LOGIN_SUCCESS, payload: data });
-            localStorage.setItem("userinfo", data);
+        if (response.ok) {
+            dispatch({ type: LOGIN_SUCCESS, payload: JSON.stringify(data) });
+            localStorage.setItem("userinfo", JSON.stringify(data));
         } else {
-            dispatch({ type: LOGIN_FAILURE, payload: data});
+            dispatch({ type: LOGIN_FAILURE, payload: data });
         }
-    } catch(error) {
-        console.log('er',error);
-        dispatch({ type: LOGIN_FAILURE, payload: "Network Error"});
+    } catch (error) {
+        console.log('er', error);
+        dispatch({ type: LOGIN_FAILURE, payload: "Network Error" });
     }
 }
 
-export const signupUser = (credentials) => async(dispatch) => {
+export const signupUser = (credentials) => async (dispatch) => {
     dispatch({ type: SIGNUP_REQUEST });
 
-    try{
+    try {
         const response = await fetch('http://localhost:8000/user/', {
             method: "POST",
-            headers: { "Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(credentials),
         });
 
         const data = await response.json();
 
-        if(response.ok) {
+        if (response.ok) {
             dispatch({ type: SIGNUP_SUCCESS, payload: data });
             localStorage.setItem("userinfo", data);
         } else {
-            dispatch({ type: SIGNUP_FAILURE, payload: data});
+            dispatch({ type: SIGNUP_FAILURE, payload: data });
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error);
-        dispatch({ type: SIGNUP_FAILURE, payload: "Network Error"});
+        dispatch({ type: SIGNUP_FAILURE, payload: "Network Error" });
     }
 }
 
-export const logoutUser = () => async(dispatch) => {
+export const getUserById = (userId) => async (dispatch) => {
+    dispatch({ type: "GET_USER_REQUEST" });
+
+    try {
+        const response = await fetch(`http://localhost:8000/user/${userId}`, {
+            method: "GET",
+            credentials: "include"
+        })
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            dispatch({ type: "GET_USER_FAILURE", payload: data });
+        }
+
+        dispatch({ type: "GET_USER_SUCCESS", payload: data });
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: "GET_USER_FAILURE", payload: 'Network Error' });
+    }
+}
+
+export const logoutUser = () => async (dispatch) => {
     dispatch({ type: "LOGOUT_USER" });
 
     await fetch('http://localhost:8000/user/logout', {
@@ -58,5 +80,5 @@ export const logoutUser = () => async(dispatch) => {
     });
     localStorage.removeItem("userinfo");
 
-    dispatch({ type: LOGOUT_SUCCESS});
+    dispatch({ type: LOGOUT_SUCCESS });
 }

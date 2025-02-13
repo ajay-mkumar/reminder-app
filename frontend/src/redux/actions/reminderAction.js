@@ -8,7 +8,7 @@ export const getRemminder = () => async (dispatch) => {
         });
 
         const data = await response.json();
-        console.log('is arrya', Array.isArray(data))
+        
 
         if (response.ok) {
             dispatch({ type: "GET_REMINDER_SUCCESS", payload: data });

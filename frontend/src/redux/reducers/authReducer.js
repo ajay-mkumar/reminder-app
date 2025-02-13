@@ -3,7 +3,7 @@ import { SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../types/signupT
 
 const initialState = {
     loading: false,
-    user: localStorage.getItem("userinfo") || null,
+    user: (localStorage.getItem("userinfo")) ? JSON.parse((localStorage.getItem("userinfo"))) : null,
     error: null
 };
 

@@ -4,6 +4,7 @@ import AboutScreen from './screens/AboutScreen';
 import AuthScreen from './screens/AuthScreen';
 import HomeScreen from './screens/HomeScreen';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserScreen from './screens/UserScreen';
 function App() {
 
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='' element={<ProtectedRoute />} >
           <Route path='/home' element={<HomeScreen />} />
           <Route path='/about' element={<AboutScreen />} />
+          <Route path='/profile' element={<UserScreen />} />
         </Route>
       </Routes>
     </Router>

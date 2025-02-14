@@ -50,7 +50,28 @@ export const signupUser = (credentials) => async (dispatch) => {
     }
 }
 
+export const updateUser = (userDetails) => async (dispatch) => {
+    dispatch({ type: "USER_UPDATE_REQUEST" });
 
+    try {
+        const response = await fetch('http://localhost:8000/user/', {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userDetails)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            dispatch({ type: "USER_UPDATE_SUCCESS", payload: data });
+        } else {
+            dispatch({ type: "USER_UPDATE_FAILURE", payload: data });
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: "USER_UPDATE_FAILURE", payload: 'Network Error' })
+    }
+}
 export const logoutUser = () => async (dispatch) => {
     dispatch({ type: "LOGOUT_USER" });
 

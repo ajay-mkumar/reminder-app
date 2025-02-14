@@ -79,7 +79,7 @@ const updateUser = asyncHandler(async(req, res) => {
     if (email)  user.email = email;
     await user.save();
 
-    res.status(200).json(`user is updated ${user}`);
+    res.status(200).json(user);
 })
 
 const deleteUser = (req, res) => {

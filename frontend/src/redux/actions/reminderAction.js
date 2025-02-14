@@ -1,4 +1,4 @@
-export const getRemminder = () => async (dispatch) => {
+export const getReminder = () => async (dispatch) => {
     dispatch({ type: "GET_REMINDER_REQUEST" });
 
     try {
@@ -8,7 +8,7 @@ export const getRemminder = () => async (dispatch) => {
         });
 
         const data = await response.json();
-        
+
 
         if (response.ok) {
             dispatch({ type: "GET_REMINDER_SUCCESS", payload: data });
@@ -62,5 +62,29 @@ export const deleteReminder = (reminderId) => async (dispatch) => {
     } catch (error) {
         console.log(error);
         dispatch({ type: "POST_DELETE_FAILURE", payload: "Network Error" });
+    }
+}
+
+export const updateReminder = (reminderId, updatedReminder) => async (dispatch) => {
+    dispatch({ type: "UPDATE_REMINDER_REQUEST" });
+
+    try {
+        const response = await fetch(`http://localhost:8000/reminder/${reminderId}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedReminder)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            dispatch({ type: "UPDATE_REMINDER_SUCCESS", payload: data });
+        } else {
+            dispatch({ type: "UPDATE_REMINDER_FAILURE", payload: data });
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: "UPDATE_REMINDER_FAILURE", payload: "Network Error" });
     }
 }

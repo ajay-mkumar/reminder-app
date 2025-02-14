@@ -24,9 +24,17 @@ export const reminderReducer = (state = initialState, action) => {
         case "POST_DELETE_REQUEST":
             return { ...state, loading: true };
         case "POST_DELETE_SUCCESS":
-            return { loading: false, reminders: state.reminders.filter(reminder => reminder.id !== action.payload), error: null };
+            return { loading: false, reminders: state.reminders.filter((reminder) => reminder.id !== action.payload), error: null };
         case "POST_DELETE_FAILURE":
             return { loading: false, reminder: state.reminders, error: action.payload };
+        case "UPDATE_REMINDER_REQUEST":
+            return { ...state, loading: true };
+        case "UPDATE_REMINDER_SUCCESS":
+            return {
+                loading: false, reminders: state.reminders, error: null
+            };
+        case "UPDATE_REMINDER_FAILURE":
+            return { loading: false, reminders: state.reminders, error: action.payload };
         default:
             return state;
     }

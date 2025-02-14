@@ -4,30 +4,31 @@ import CardComponent from '../components/CardComponent';
 import { Button, Container } from '@mui/material';
 import ReminderModal from '../components/ReminderModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRemminder } from '../redux/actions/reminderAction';
+import { getReminder } from '../redux/actions/reminderAction';
 
 
 function HomeScreen() {
 
   const [open, setOpen] = React.useState(false);
 
-  const dispacth = useDispatch();
+  const dispatch = useDispatch();
 
   const { loading, reminders, error } = useSelector((state) => state.reminder);
 
 
   React.useEffect(() => {
-    dispacth(getRemminder())
+    dispatch(getReminder())
   },
-    [dispacth])
-    
+    [dispatch])
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <Container>
-      {loading && <p>Loading...</p>}
       <Box display='flex' justifyContent={'flex-end'}>
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         <Button sx={{ m: 2, backgroundColor: 'green', color: 'white' }} onClick={handleOpen}>Add Reminder</Button>
         <ReminderModal open={open} handleClose={handleClose} />
       </Box>
@@ -40,9 +41,9 @@ function HomeScreen() {
           margin: '50px'
         }}
       >
-
+        {reminders.length === 0 && <p>No reminders found</p>}
         {reminders.map((reminder) => (
-          <CardComponent card={reminder} index={reminder.id} />
+          <CardComponent key={reminder.id} card={reminder} index={reminder.id} />
         ))}
       </Box>
     </Container>

@@ -54,8 +54,9 @@ export const updateUser = (userDetails) => async (dispatch) => {
     dispatch({ type: "USER_UPDATE_REQUEST" });
 
     try {
-        const response = await fetch('http://localhost:8000/user/', {
+        const response = await fetch(`http://localhost:8000/user/${userDetails.id}`, {
             method: 'PUT',
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userDetails)
         });

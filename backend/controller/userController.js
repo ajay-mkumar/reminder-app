@@ -1,4 +1,4 @@
-const asyncHandler = require("../Middleware/asyncHandler");
+const asyncHandler = require("../middleware/asyncHandler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");

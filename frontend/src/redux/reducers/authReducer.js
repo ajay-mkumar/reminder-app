@@ -37,11 +37,11 @@ export const authReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };
-        case "UPDATE_USER_REQUEST":
+        case "USER_UPDATE_REQUEST":
             return { ...state, loading: true };
-        case "UPDATE_USER_SUCCESS":
+        case "USER_UPDATE_SUCCESS":
             return { loading: false, user: action.payload, error: null }
-        case "UPDATE_USER_FAILURE":
+        case "USER_UPDATE_FAILURE":
             return { loading: false, user: state.user, error: action.payload}
         default:
             return state;

@@ -36,7 +36,7 @@ const CardComponent = ({ card, index }) => {
   const handleDelete = () =>  dispatch(deleteReminder(index));
 
   return (
-    <Card sx={{ minWidth: 275 }} ref={cardRef}>
+    <Card sx={{ minWidth: 275}}  ref={cardRef}>
       <CardActionArea onClick={() => setIsEditing(true)}>
         <CardContent key={index} >
           <Typography variant="h5" component="div">

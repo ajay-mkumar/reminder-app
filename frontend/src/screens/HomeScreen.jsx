@@ -38,7 +38,7 @@ function HomeScreen() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 1fr))',
           gap: 2,
-          margin: '50px'
+          margin: '50px',
         }}
       >
         {reminders.length === 0 && <p>No reminders found</p>}

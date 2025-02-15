@@ -19,8 +19,7 @@ const UserScreen = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { firstName, lastName, email} = formData
-        dispacth(updateUser({ firstName, lastName, email }));
+        dispacth(updateUser(formData));
 
         if (!error) {
             navigate('/home');
@@ -54,7 +53,7 @@ const UserScreen = () => {
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
-                                    name="lasttName"
+                                    name="lastName"
                                     label="Last Name"
                                     variant="outlined"
                                     margin="normal"

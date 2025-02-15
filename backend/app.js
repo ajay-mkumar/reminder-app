@@ -3,6 +3,8 @@ const userRouter = require('./routes/userRouter');
 const reminderRouter = require('./routes/reminderRouter');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const cron = require('node-cron');
+const { sendReminder } = require('./controller/reminderController');
 const app = express();
 
 app.use(express.json());

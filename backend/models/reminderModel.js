@@ -21,11 +21,19 @@ const reminder = sequelize.define('reminder', {
     reminder_time: {
         type: DataTypes.DATE,
         allowNull: false
-    }
+    },
+    subject: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 }, {
     tableName: 'reminder',
     timestamps: 'true'
-})
+});
 
 User.hasMany(reminder, {foreignKey: 'userId'});
 reminder.belongsTo(User, {foreignKey: {name: 'userId', index: false }});
